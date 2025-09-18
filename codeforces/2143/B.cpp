@@ -30,75 +30,28 @@ constexpr ld eps = 1e-10;
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
 ull randint(ull l, ull r) {uniform_int_distribution<unsigned long long> dist(l, r); return dist(rng);}
 
-template<typename Int>
-struct BIT {
-    vector<Int> a;
-    int n;
-
-    BIT() {}
-    BIT(int n) {
-        init(n);
-    }
-
-    void init(int n) {
-        this->n = n;
-        a.resize(n + 1);
-    }
-
-    void add(int x, int k) {
-        for (; x <= n; x += x & -x) {
-            a[x] += k;
-        }
-    }
-
-    void add(int x, int y, Int k) {
-        add(x, k), add(y + 1, -k);
-    }
-
-    Int ask(int x) {
-        Int ans = 0;
-        for (; x; x -= x & -x) {
-            ans += a[x];
-        }
-        return ans;
-    }
-
-    Int ask(int x, int y) {
-        return ask(y) - ask(x - 1);
-    }
-
-    Int kth(int k) {
-        Int ans = 0;
-        for (int i = __lg(n); i >= 0; i--) {
-            Int val = ans + (1 << i);
-            if (val < n && a[val] < k) {
-                k -= a[val];
-                ans = val;
-            }
-        }
-        return ans + 1;
-    }
-};
-
 void init() {
 
 }
 
 void solve() {
-    int n, m;
-    cin >> n >> m;
-    BIT<int> tr(n);
-    for (int i = 1; i <= n; ++i) {
-        int x;
-        cin >> x;
-        tr.add(i, x);
+    int n, k;
+    ll sum = 0;
+    cin >> n >> k;
+    vector<int> a(n + 1), b(k + 1);
+    for (int i = 1; i <= n; ++i) cin >> a[i], sum += a[i];
+    for (int i = 1; i <= k; ++i) cin >> b[i];
+    sort(a.begin() + 1, a.end(), [&](int a, int b) {
+        return a > b;
+    });
+    sort(b.begin() + 1, b.end());
+    int ptr = 0;
+    for (int i = 1; i <= k; ++i) {
+        ptr += b[i];
+        if (ptr > n) break;
+        sum -= a[ptr];
     }
-    for (int i = 1; i <= m; ++i) {
-        int op, x, y;
-        cin >> op >> x >> y;
-        if (op == 1) tr.add(x, y);
-        else cout << tr.ask(x, y) << "\n";
-    }
+    cout << sum << "\n";
 }
 
 int main() {
@@ -108,7 +61,7 @@ int main() {
     init();
 
     int t = 1;
-    // cin >> t;
+    cin >> t;
     for (int _ = 1; _ <= t; ++_) {
         solve();
     }
