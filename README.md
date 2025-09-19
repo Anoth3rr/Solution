@@ -19,7 +19,3 @@ nowcoder
 
 
 HDUOJ
-
-
-NBUOJ
-
