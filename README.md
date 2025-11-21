@@ -18,7 +18,6 @@
 # AtCoder
 
 - ABC431 ABCDEF
-
 - ABC430 AK ABCDEFG
 - TUPC2022 I
 
@@ -27,9 +26,7 @@
 ## 牛客周赛
 
 - 牛客周赛 Round 112 AK ABCDEF
-
 - 牛客周赛 Round 111 AK ABCDEF
-
 - 牛客周赛 Round 107 AK ABCDEF
 
 ## 小白月赛
