@@ -1,0 +1,119 @@
+//Another
+#include<bits/stdc++.h>
+#include<bits/extc++.h>
+#define _0x0_ cin
+#define _0w0_ cout
+#define pb push_back
+#define eb emplace_back
+#define fi first
+#define se second
+#define all(a) a.begin(), a.end()
+#define rall(a) a.rbegin(), a.rend()
+using namespace std;
+
+typedef long long ll;
+typedef long double ld;
+typedef unsigned long long ull;
+typedef __int128 i128;
+typedef pair<int, int> PII;
+typedef pair<ll, ll> PLL;
+typedef tuple<ll, ll, ll> TLLL;
+typedef __gnu_pbds::tree<PLL, __gnu_pbds::null_type, less<PLL>, __gnu_pbds::rb_tree_tag, __gnu_pbds::tree_order_statistics_node_update> Tree;
+// typedef __gnu_pbds::tree<ll, __gnu_pbds::null_type, less<ll>, __gnu_pbds::rb_tree_tag, __gnu_pbds::tree_order_statistics_node_update> Tree;
+
+constexpr int inf = (ll)1e9 + 7;
+constexpr ll INF = (ll)2e18 + 9;
+// constexpr ll INF = (ll)4e18;
+// constexpr ll MOD = 1e9 + 7;
+constexpr ll MOD = 998244353;
+constexpr ld PI = acos(-1.0);
+constexpr ld eps = 1e-10;
+
+mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
+ull randint(ull l, ull r) {uniform_int_distribution<unsigned long long> dist(l, r); return dist(rng);}
+
+void init() {
+
+}
+
+bool cmp(const vector<int>& a, const vector<int>& b, int st) {
+    int ptr1 = st;
+    int ptr2 = st;
+
+    while (ptr1 < a.size() && ptr2 < b.size()) {
+        if (a[ptr1] != b[ptr2]) {
+            return a[ptr1] < b[ptr2];
+        }
+        ptr1++;
+        ptr2++;
+    }
+
+    return a.size() < b.size();
+}
+
+void solve() {
+    int n;
+    cin >> n;
+    vector<vector<int>> g(n);
+    vector<bool> vis(n);
+
+    for (int i = 0; i < n; ++i) {
+        int k;
+        cin >> k;
+        g[i].resize(k);
+        for (int j = 0; j < k; ++j) {
+            cin >> g[i][j];
+        }
+    }
+
+    vector<int> ans;
+    int clen = 0;
+    int cnt = 0;
+
+    while (cnt < n) {
+        int idx = -1;
+
+        for (int i = 0; i < n; ++i) {
+            if (!vis[i] && g[i].size() > clen) {
+                if (idx == -1) {
+                    idx = i;
+                } else {
+                    if (cmp(g[i], g[idx], clen)) {
+                        idx = i;
+                    }
+                }
+            }
+        }
+
+        if (idx == -1) {
+            break;
+        }
+
+        for (int i = clen; i < g[idx].size(); ++i) {
+            ans.pb(g[idx][i]);
+        }
+
+        clen = g[idx].size();
+        vis[idx] = true;
+        cnt++;
+    }
+
+    for (auto v : ans) {
+        cout << v << " ";
+    }
+    cout << "\n";
+}
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+
+    init();
+
+    int t = 1;
+    cin >> t;
+    for (int _ = 1; _ <= t; ++_) {
+        solve();
+    }
+    return 0;
+}

@@ -1,0 +1,14 @@
+CompileFlags:
+  Add:
+    - -std=gnu++2a
+    - -I F:\Anoth3rr\XCPC
+    - -DLOCAL
+    - -Wall
+    - -Wextra
+    - -Wno-unused-parameter
+    - -Wno-unused-variable
+
+Diagnostics:
+  Suppress:
+    - clang-diagnostic-reorder
+    - clang-diagnostic-sign-compare
